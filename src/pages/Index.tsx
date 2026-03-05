@@ -1,3 +1,4 @@
+// sync commit trigger v2
 import { useState, useEffect } from 'react';
 import { Search, MapPin, Bell, ChevronDown, Star, RotateCcw, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
