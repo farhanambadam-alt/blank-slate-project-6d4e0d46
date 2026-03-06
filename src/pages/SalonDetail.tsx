@@ -78,13 +78,12 @@ const SalonDetail = () => {
   ];
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 
-  /* ── Bento gallery media ── */
-  const bentoMedia = [
-    { type: 'image' as const, src: salon.image, span: 'col-span-2 row-span-2' },
-    { type: 'video' as const, src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&h=400&fit=crop', span: '' },
-    { type: 'image' as const, src: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=400&fit=crop', span: '' },
-    { type: 'video' as const, src: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=400&h=400&fit=crop', span: '' },
-    { type: 'image' as const, src: 'https://images.unsplash.com/photo-1521590832167-7228fcaeb733?w=400&h=400&fit=crop', span: '' },
+  /* ── Instagram gallery media ── */
+  const instagramMedia = [
+    { type: 'post' as const, url: 'https://www.instagram.com/p/CqpaFBnJhcl/' },
+    { type: 'reel' as const, url: 'https://www.instagram.com/reel/DVTaZDhkSmg/' },
+    { type: 'post' as const, url: 'https://www.instagram.com/p/CqpaFBnJhcl/' },
+    { type: 'reel' as const, url: 'https://www.instagram.com/reel/DVTaZDhkSmg/' },
   ];
 
   /* ── Hero carousel state ── */
