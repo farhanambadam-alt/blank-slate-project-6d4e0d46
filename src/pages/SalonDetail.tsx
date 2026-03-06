@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { ArrowLeft, Star, MapPin, Clock, Plus, Minus, Navigation, Heart, ShieldCheck, ChevronRight, ChevronDown, Share2, Scissors, Sparkles, Award, Play, Image as ImageIcon, Instagram } from 'lucide-react';
-import InstagramEmbed from '@/components/InstagramEmbed';
+
 import ReviewsSection from '@/components/ReviewsSection';
 import { useNavigate, useParams } from 'react-router-dom';
 import { featuredSalons, nearbySalons, services, artists, reviews } from '@/data/mockData';
