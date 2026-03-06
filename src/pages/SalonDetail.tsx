@@ -624,6 +624,15 @@ const SalonDetail = () => {
           </div>
         </div>
       )}
+
+      {/* Media Lightbox */}
+      <MediaLightbox
+        open={lightboxIndex !== null}
+        onClose={() => setLightboxIndex(null)}
+        items={galleryMedia.map((m) => ({ type: m.type, src: m.type === 'image' ? m.src : m.thumb }))}
+        activeIndex={lightboxIndex ?? 0}
+        onChangeIndex={setLightboxIndex}
+      />
     </div>
   );
 };
