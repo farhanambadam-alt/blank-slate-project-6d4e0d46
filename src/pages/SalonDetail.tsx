@@ -632,71 +632,14 @@ const SalonDetail = () => {
         </div>
       )}
 
-      {/* Instagram Media Viewer */}
-      {lightboxIndex !== null && galleryMedia[lightboxIndex] && (
-        <div
-          className={`fixed inset-0 z-[100] flex flex-col bg-foreground/95 backdrop-blur-2xl transition-opacity duration-300`}
-          style={{ isolation: 'isolate' }}
-        >
-          {/* Top bar */}
-          <div className="relative z-10 flex items-center justify-between px-5 pt-[max(env(safe-area-inset-top),16px)] pb-3">
-            <span className="text-primary-foreground/50 text-[13px] font-heading font-medium tracking-wide">
-              {lightboxIndex + 1} / {galleryMedia.length}
-            </span>
-            <button
-              onClick={() => setLightboxIndex(null)}
-              className="w-10 h-10 rounded-full bg-primary-foreground/10 backdrop-blur-md flex items-center justify-center border border-primary-foreground/10 active:scale-90 transition-all min-h-[44px] min-w-[44px]"
-              aria-label="Close"
-            >
-              <X size={18} className="text-primary-foreground" />
-            </button>
-          </div>
-
-          {/* Instagram Embed (cropped) */}
-          <div className="relative z-[5] flex-1 flex items-center justify-center px-4 min-h-0">
-            <div
-              key={lightboxIndex}
-              className="w-full max-w-[380px] rounded-2xl overflow-hidden bg-black shadow-2xl"
-              style={{ aspectRatio: galleryMedia[lightboxIndex].type === 'reel' ? '9/14' : '1/1' }}
-            >
-              <InstagramEmbed url={galleryMedia[lightboxIndex].url} type={galleryMedia[lightboxIndex].type} />
-            </div>
-          </div>
-
-          {/* Thumbnail strip */}
-          <div className="relative z-10 flex-shrink-0 px-4 pb-[max(env(safe-area-inset-bottom),24px)] pt-4">
-            <div className="flex gap-2.5 justify-center items-center overflow-x-auto scrollbar-hide py-1">
-              {galleryMedia.map((item, i) => {
-                const isActive = i === lightboxIndex;
-                return (
-                  <button
-                    key={i}
-                    onClick={() => setLightboxIndex(i)}
-                    className={`relative flex-shrink-0 overflow-hidden transition-all duration-200 ease-out ${
-                      isActive
-                        ? 'w-[56px] h-[56px] rounded-2xl ring-2 ring-primary-foreground ring-offset-2 ring-offset-transparent scale-110'
-                        : 'w-[44px] h-[44px] rounded-xl opacity-40 hover:opacity-70'
-                    }`}
-                  >
-                    <img
-                      src={item.thumb}
-                      alt={`Thumb ${i + 1}`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      draggable={false}
-                    />
-                    {item.type === 'reel' && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                        <Play size={10} className="text-primary-foreground" fill="white" />
-                      </div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Instagram Media Drawer */}
+      <InstagramMediaDrawer
+        open={lightboxIndex !== null}
+        onClose={() => setLightboxIndex(null)}
+        items={galleryMedia}
+        activeIndex={lightboxIndex ?? 0}
+        onChangeIndex={setLightboxIndex}
+      />
     </div>
   );
 };
