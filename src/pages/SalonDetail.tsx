@@ -358,25 +358,38 @@ const SalonDetail = () => {
       {/* ── About Tab ── */}
       {activeTab === 'about' && (
         <div className="px-5 pt-4 space-y-3 animate-fade-in-up" style={{ animationDuration: '250ms' }}>
-          {/* ── Bento Media Gallery ── */}
+          {/* ── Gallery & Videos ── */}
           <div className="bg-card rounded-2xl p-4 card-shadow border border-border">
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-heading font-semibold text-[14px] text-foreground flex items-center gap-2">
                 <ImageIcon size={15} className="text-primary" />
                 Gallery & Videos
               </h3>
-              <span className="text-[11px] font-body text-muted-foreground">{instagramMedia.length} items</span>
+              <span className="text-[11px] font-body text-muted-foreground">{galleryMedia.length} items</span>
             </div>
             <div className="-mx-4 px-4 overflow-x-auto scrollbar-hide">
               <div className="flex gap-3 w-max pb-1">
-                {instagramMedia.map((item, i) => (
-                  <div
+                {galleryMedia.map((item, i) => (
+                  <button
                     key={i}
-                    className="flex-shrink-0"
-                    style={{ width: item.type === 'reel' ? '180px' : '200px' }}
+                    onClick={() => setLightboxIndex(i)}
+                    className="relative flex-shrink-0 overflow-hidden rounded-2xl border border-border group active:scale-[0.97] transition-transform"
+                    style={{ width: item.type === 'video' ? '150px' : '170px', height: item.type === 'video' ? '200px' : '170px' }}
                   >
-                    <InstagramEmbed url={item.url} type={item.type} />
-                  </div>
+                    <img
+                      src={item.thumb}
+                      alt={`Gallery ${i + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    {item.type === 'video' && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-foreground/30">
+                        <div className="w-10 h-10 rounded-full bg-card/90 backdrop-blur-sm flex items-center justify-center shadow-lg">
+                          <Play size={16} className="text-foreground ml-0.5" fill="currentColor" />
+                        </div>
+                      </div>
+                    )}
+                  </button>
                 ))}
               </div>
             </div>
