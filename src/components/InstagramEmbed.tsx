@@ -26,7 +26,7 @@ interface InstagramEmbedProps {
 }
 
 const InstagramEmbed = ({ url, type }: InstagramEmbedProps) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLQuoteElement>(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
