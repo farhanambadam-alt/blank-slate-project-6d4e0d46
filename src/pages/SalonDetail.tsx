@@ -1,11 +1,11 @@
-import { useState, useCallback, useEffect } from 'react';
-import { ArrowLeft, Star, MapPin, Clock, Plus, Minus, Navigation, Heart, ShieldCheck, ChevronRight, ChevronDown, Share2, Scissors, Sparkles, Award, Play, Image as ImageIcon, Instagram } from 'lucide-react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { ArrowLeft, Star, MapPin, Clock, Plus, Minus, Navigation, Heart, ShieldCheck, ChevronRight, ChevronDown, Share2, Scissors, Sparkles, Award, Play, Image as ImageIcon, Instagram, X } from 'lucide-react';
 
 import ReviewsSection from '@/components/ReviewsSection';
 import { useNavigate, useParams } from 'react-router-dom';
 import { featuredSalons, nearbySalons, services, artists, reviews } from '@/data/mockData';
 import { useGender } from '@/contexts/GenderContext';
-import MediaLightbox from '@/components/MediaLightbox';
+import InstagramEmbed from '@/components/InstagramEmbed';
 import { Skeleton } from '@/components/ui/skeleton';
 
 /* ── service image map ── */
@@ -78,12 +78,12 @@ const SalonDetail = () => {
   ];
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 
-  /* ── Gallery & Videos media ── */
-  const galleryMedia: { type: 'image' | 'video'; src: string; thumb: string }[] = [
-    { type: 'image', src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=800&fit=crop', thumb: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=300&h=300&fit=crop' },
-    { type: 'video', src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', thumb: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=300&h=400&fit=crop' },
-    { type: 'image', src: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=800&h=800&fit=crop', thumb: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=300&h=300&fit=crop' },
-    { type: 'video', src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', thumb: 'https://images.unsplash.com/photo-1521590832167-7228fcaeb733?w=300&h=400&fit=crop' },
+  /* ── Instagram Gallery & Videos media ── */
+  const galleryMedia: { type: 'post' | 'reel'; url: string; thumb: string }[] = [
+    { type: 'post', url: 'https://www.instagram.com/p/CqpaFBnJhcl/', thumb: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=300&h=300&fit=crop' },
+    { type: 'reel', url: 'https://www.instagram.com/reel/DVTaZDhkSmg/', thumb: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=300&h=400&fit=crop' },
+    { type: 'post', url: 'https://www.instagram.com/p/CqpaFBnJhcl/', thumb: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=300&h=300&fit=crop' },
+    { type: 'reel', url: 'https://www.instagram.com/reel/DVTaZDhkSmg/', thumb: 'https://images.unsplash.com/photo-1521590832167-7228fcaeb733?w=300&h=400&fit=crop' },
   ];
 
   /* ── Hero carousel state ── */
@@ -362,35 +362,42 @@ const SalonDetail = () => {
           <div className="bg-card rounded-2xl p-4 card-shadow border border-border">
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-heading font-semibold text-[14px] text-foreground flex items-center gap-2">
-                <ImageIcon size={15} className="text-primary" />
+                <Instagram size={15} className="text-primary" />
                 Gallery & Videos
               </h3>
               <span className="text-[11px] font-body text-muted-foreground">{galleryMedia.length} items</span>
             </div>
             <div className="-mx-4 px-4 overflow-x-auto scrollbar-hide">
               <div className="flex gap-3 w-max pb-1">
-                {galleryMedia.map((item, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setLightboxIndex(i)}
-                    className="relative flex-shrink-0 overflow-hidden rounded-2xl border border-border group active:scale-[0.97] transition-transform"
-                    style={{ width: item.type === 'video' ? '150px' : '170px', height: item.type === 'video' ? '200px' : '170px' }}
-                  >
-                    <img
-                      src={item.thumb}
-                      alt={`Gallery ${i + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    {item.type === 'video' && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-foreground/30">
-                        <div className="w-10 h-10 rounded-full bg-card/90 backdrop-blur-sm flex items-center justify-center shadow-lg">
-                          <Play size={16} className="text-foreground ml-0.5" fill="currentColor" />
+                {galleryMedia.map((item, i) => {
+                  const isReel = item.type === 'reel';
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => setLightboxIndex(i)}
+                      className="relative flex-shrink-0 overflow-hidden rounded-2xl border border-border group active:scale-[0.97] transition-transform bg-secondary"
+                      style={{ width: isReel ? '140px' : '160px', height: isReel ? '190px' : '160px' }}
+                    >
+                      <img
+                        src={item.thumb}
+                        alt={`Gallery ${i + 1}`}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      {isReel && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-foreground/20">
+                          <div className="w-10 h-10 rounded-full bg-card/90 backdrop-blur-sm flex items-center justify-center shadow-lg">
+                            <Play size={16} className="text-foreground ml-0.5" fill="currentColor" />
+                          </div>
                         </div>
+                      )}
+                      <div className="absolute bottom-2 left-2 bg-foreground/60 backdrop-blur-sm rounded-md px-1.5 py-0.5 flex items-center gap-1">
+                        <Instagram size={10} className="text-primary-foreground" />
+                        <span className="text-[9px] font-heading text-primary-foreground font-medium capitalize">{item.type}</span>
                       </div>
-                    )}
-                  </button>
-                ))}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -625,14 +632,71 @@ const SalonDetail = () => {
         </div>
       )}
 
-      {/* Media Lightbox */}
-      <MediaLightbox
-        open={lightboxIndex !== null}
-        onClose={() => setLightboxIndex(null)}
-        items={galleryMedia.map((m) => ({ type: m.type, src: m.thumb, videoSrc: m.type === 'video' ? m.src : undefined }))}
-        activeIndex={lightboxIndex ?? 0}
-        onChangeIndex={setLightboxIndex}
-      />
+      {/* Instagram Media Viewer */}
+      {lightboxIndex !== null && galleryMedia[lightboxIndex] && (
+        <div
+          className={`fixed inset-0 z-[100] flex flex-col bg-foreground/95 backdrop-blur-2xl transition-opacity duration-300`}
+          style={{ isolation: 'isolate' }}
+        >
+          {/* Top bar */}
+          <div className="relative z-10 flex items-center justify-between px-5 pt-[max(env(safe-area-inset-top),16px)] pb-3">
+            <span className="text-primary-foreground/50 text-[13px] font-heading font-medium tracking-wide">
+              {lightboxIndex + 1} / {galleryMedia.length}
+            </span>
+            <button
+              onClick={() => setLightboxIndex(null)}
+              className="w-10 h-10 rounded-full bg-primary-foreground/10 backdrop-blur-md flex items-center justify-center border border-primary-foreground/10 active:scale-90 transition-all min-h-[44px] min-w-[44px]"
+              aria-label="Close"
+            >
+              <X size={18} className="text-primary-foreground" />
+            </button>
+          </div>
+
+          {/* Instagram Embed (cropped) */}
+          <div className="relative z-[5] flex-1 flex items-center justify-center px-4 min-h-0">
+            <div
+              key={lightboxIndex}
+              className="w-full max-w-[380px] rounded-2xl overflow-hidden bg-black shadow-2xl"
+              style={{ aspectRatio: galleryMedia[lightboxIndex].type === 'reel' ? '9/14' : '1/1' }}
+            >
+              <InstagramEmbed url={galleryMedia[lightboxIndex].url} type={galleryMedia[lightboxIndex].type} />
+            </div>
+          </div>
+
+          {/* Thumbnail strip */}
+          <div className="relative z-10 flex-shrink-0 px-4 pb-[max(env(safe-area-inset-bottom),24px)] pt-4">
+            <div className="flex gap-2.5 justify-center items-center overflow-x-auto scrollbar-hide py-1">
+              {galleryMedia.map((item, i) => {
+                const isActive = i === lightboxIndex;
+                return (
+                  <button
+                    key={i}
+                    onClick={() => setLightboxIndex(i)}
+                    className={`relative flex-shrink-0 overflow-hidden transition-all duration-200 ease-out ${
+                      isActive
+                        ? 'w-[56px] h-[56px] rounded-2xl ring-2 ring-primary-foreground ring-offset-2 ring-offset-transparent scale-110'
+                        : 'w-[44px] h-[44px] rounded-xl opacity-40 hover:opacity-70'
+                    }`}
+                  >
+                    <img
+                      src={item.thumb}
+                      alt={`Thumb ${i + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      draggable={false}
+                    />
+                    {item.type === 'reel' && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                        <Play size={10} className="text-primary-foreground" fill="white" />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
