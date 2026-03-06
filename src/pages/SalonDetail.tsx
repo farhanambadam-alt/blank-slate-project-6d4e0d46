@@ -78,12 +78,12 @@ const SalonDetail = () => {
   ];
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 
-  /* ── Gallery & Videos media ── */
-  const galleryMedia: { type: 'image' | 'video'; src: string; thumb: string }[] = [
-    { type: 'image', src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=800&fit=crop', thumb: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=300&h=300&fit=crop' },
-    { type: 'video', src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', thumb: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=300&h=400&fit=crop' },
-    { type: 'image', src: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=800&h=800&fit=crop', thumb: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=300&h=300&fit=crop' },
-    { type: 'video', src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', thumb: 'https://images.unsplash.com/photo-1521590832167-7228fcaeb733?w=300&h=400&fit=crop' },
+  /* ── Instagram Gallery & Videos media ── */
+  const galleryMedia: { type: 'post' | 'reel'; url: string; thumb: string }[] = [
+    { type: 'post', url: 'https://www.instagram.com/p/CqpaFBnJhcl/', thumb: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=300&h=300&fit=crop' },
+    { type: 'reel', url: 'https://www.instagram.com/reel/DVTaZDhkSmg/', thumb: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=300&h=400&fit=crop' },
+    { type: 'post', url: 'https://www.instagram.com/p/CqpaFBnJhcl/', thumb: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=300&h=300&fit=crop' },
+    { type: 'reel', url: 'https://www.instagram.com/reel/DVTaZDhkSmg/', thumb: 'https://images.unsplash.com/photo-1521590832167-7228fcaeb733?w=300&h=400&fit=crop' },
   ];
 
   /* ── Hero carousel state ── */
