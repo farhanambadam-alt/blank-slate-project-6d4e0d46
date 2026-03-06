@@ -364,3 +364,16 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Instagram embed overrides — force fill container */
+.instagram-media,
+iframe.instagram-media-rendered {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  display: block !important;
+  background: transparent !important;
+}
