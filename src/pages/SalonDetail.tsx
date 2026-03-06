@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
-import { ArrowLeft, Star, MapPin, Clock, Plus, Minus, Navigation, Heart, ShieldCheck, ChevronRight, ChevronDown, Share2, Scissors, Sparkles, Award, Play, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Star, MapPin, Clock, Plus, Minus, Navigation, Heart, ShieldCheck, ChevronRight, ChevronDown, Share2, Scissors, Sparkles, Award, Play, Image as ImageIcon, Instagram } from 'lucide-react';
+import InstagramEmbed from '@/components/InstagramEmbed';
 import ReviewsSection from '@/components/ReviewsSection';
 import { useNavigate, useParams } from 'react-router-dom';
 import { featuredSalons, nearbySalons, services, artists, reviews } from '@/data/mockData';
@@ -77,13 +78,12 @@ const SalonDetail = () => {
   ];
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 
-  /* ── Bento gallery media ── */
-  const bentoMedia = [
-    { type: 'image' as const, src: salon.image, span: 'col-span-2 row-span-2' },
-    { type: 'video' as const, src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&h=400&fit=crop', span: '' },
-    { type: 'image' as const, src: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=400&fit=crop', span: '' },
-    { type: 'video' as const, src: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=400&h=400&fit=crop', span: '' },
-    { type: 'image' as const, src: 'https://images.unsplash.com/photo-1521590832167-7228fcaeb733?w=400&h=400&fit=crop', span: '' },
+  /* ── Instagram gallery media ── */
+  const instagramMedia = [
+    { type: 'post' as const, url: 'https://www.instagram.com/p/CqpaFBnJhcl/' },
+    { type: 'reel' as const, url: 'https://www.instagram.com/reel/DVTaZDhkSmg/' },
+    { type: 'post' as const, url: 'https://www.instagram.com/p/CqpaFBnJhcl/' },
+    { type: 'reel' as const, url: 'https://www.instagram.com/reel/DVTaZDhkSmg/' },
   ];
 
   /* ── Hero carousel state ── */
@@ -365,44 +365,22 @@ const SalonDetail = () => {
                 <ImageIcon size={15} className="text-primary" />
                 Gallery & Videos
               </h3>
-              <span className="text-[11px] font-body text-muted-foreground">{bentoMedia.length} items</span>
+              <span className="text-[11px] font-body text-muted-foreground">{instagramMedia.length} items</span>
             </div>
             <div className="-mx-4 px-4 overflow-x-auto scrollbar-hide">
-              <div className="flex gap-2.5 w-max pb-1">
-                {bentoMedia.map((item, i) => (
+              <div className="flex gap-3 w-max pb-1">
+                {instagramMedia.map((item, i) => (
                   <div
                     key={i}
-                    onClick={() => setLightboxIndex(i)}
-                    className="relative flex-shrink-0 w-[140px] h-[140px] md:w-[160px] md:h-[160px] rounded-xl overflow-hidden border border-border/50 group cursor-pointer active:scale-[0.97] transition-transform duration-200"
+                    className="flex-shrink-0"
+                    style={{ width: item.type === 'reel' ? '180px' : '200px' }}
                   >
-                    <BentoThumb src={item.src} alt={`Media ${i + 1}`} />
-                    {item.type === 'video' && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-foreground/20 group-hover:bg-foreground/30 transition-colors">
-                        <div className="w-9 h-9 rounded-full bg-card/90 backdrop-blur-sm flex items-center justify-center shadow-lg">
-                          <Play size={14} className="text-foreground ml-0.5" fill="currentColor" />
-                        </div>
-                      </div>
-                    )}
-                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-foreground/40 to-transparent" />
-                    <span className="absolute bottom-1.5 left-2 text-[10px] font-heading font-medium text-primary-foreground drop-shadow-sm">
-                      {item.type === 'video' ? 'Video' : `Photo ${i + 1}`}
-                    </span>
+                    <InstagramEmbed url={item.url} type={item.type} />
                   </div>
                 ))}
               </div>
             </div>
           </div>
-
-          {/* Lightbox */}
-          {lightboxIndex !== null && (
-            <MediaLightbox
-              open
-              onClose={() => setLightboxIndex(null)}
-              items={bentoMedia}
-              activeIndex={lightboxIndex}
-              onChangeIndex={setLightboxIndex}
-            />
-          )}
 
           {/* ── About Text ── */}
           <div className="bg-card rounded-2xl p-5 card-shadow border border-border">
