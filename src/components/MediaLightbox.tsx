@@ -17,7 +17,7 @@ interface MediaLightboxProps {
   onChangeIndex: (index: number) => void;
 }
 
-const DEMO_VIDEO = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4';
+
 
 const MediaLightbox = ({ open, onClose, items, activeIndex, onChangeIndex }: MediaLightboxProps) => {
   const [loaded, setLoaded] = useState(false);
