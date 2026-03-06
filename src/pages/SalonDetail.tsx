@@ -5,7 +5,7 @@ import ReviewsSection from '@/components/ReviewsSection';
 import { useNavigate, useParams } from 'react-router-dom';
 import { featuredSalons, nearbySalons, services, artists, reviews } from '@/data/mockData';
 import { useGender } from '@/contexts/GenderContext';
-import MediaLightbox from '@/components/MediaLightbox';
+import InstagramEmbed from '@/components/InstagramEmbed';
 import { Skeleton } from '@/components/ui/skeleton';
 
 /* ── service image map ── */
