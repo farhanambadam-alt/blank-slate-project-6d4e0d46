@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 interface MediaItem {
   type: 'image' | 'video';
   src: string;
+  videoSrc?: string;
   span?: string;
 }
 
