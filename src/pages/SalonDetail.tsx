@@ -1,5 +1,5 @@
-import { useState, useCallback, useEffect } from 'react';
-import { ArrowLeft, Star, MapPin, Clock, Plus, Minus, Navigation, Heart, ShieldCheck, ChevronRight, ChevronDown, Share2, Scissors, Sparkles, Award, Play, Image as ImageIcon, Instagram } from 'lucide-react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { ArrowLeft, Star, MapPin, Clock, Plus, Minus, Navigation, Heart, ShieldCheck, ChevronRight, ChevronDown, Share2, Scissors, Sparkles, Award, Play, Image as ImageIcon, Instagram, X } from 'lucide-react';
 
 import ReviewsSection from '@/components/ReviewsSection';
 import { useNavigate, useParams } from 'react-router-dom';
