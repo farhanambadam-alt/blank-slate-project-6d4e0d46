@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 interface MediaItem {
   type: 'image' | 'video';
   src: string;
+  videoSrc?: string;
   span?: string;
 }
 
@@ -16,7 +17,7 @@ interface MediaLightboxProps {
   onChangeIndex: (index: number) => void;
 }
 
-const DEMO_VIDEO = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4';
+
 
 const MediaLightbox = ({ open, onClose, items, activeIndex, onChangeIndex }: MediaLightboxProps) => {
   const [loaded, setLoaded] = useState(false);
@@ -126,7 +127,7 @@ const MediaLightbox = ({ open, onClose, items, activeIndex, onChangeIndex }: Med
             <div className="w-full aspect-video bg-black rounded-3xl overflow-hidden">
               <video
                 key={activeIndex}
-                src={DEMO_VIDEO}
+                src={current.videoSrc || current.src}
                 controls
                 autoPlay
                 playsInline
