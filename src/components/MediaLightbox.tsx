@@ -127,7 +127,7 @@ const MediaLightbox = ({ open, onClose, items, activeIndex, onChangeIndex }: Med
             <div className="w-full aspect-video bg-black rounded-3xl overflow-hidden">
               <video
                 key={activeIndex}
-                src={DEMO_VIDEO}
+                src={current.videoSrc || current.src}
                 controls
                 autoPlay
                 playsInline

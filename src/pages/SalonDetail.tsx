@@ -629,7 +629,7 @@ const SalonDetail = () => {
       <MediaLightbox
         open={lightboxIndex !== null}
         onClose={() => setLightboxIndex(null)}
-        items={galleryMedia.map((m) => ({ type: m.type, src: m.type === 'image' ? m.src : m.thumb }))}
+        items={galleryMedia.map((m) => ({ type: m.type, src: m.thumb, videoSrc: m.type === 'video' ? m.src : undefined }))}
         activeIndex={lightboxIndex ?? 0}
         onChangeIndex={setLightboxIndex}
       />
